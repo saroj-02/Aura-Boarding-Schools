@@ -1,0 +1,23 @@
+[
+  {
+    "title": "The Legacy of Dehradun",
+    "excerpt": "How a small valley became the educational epicenter of India, producing some of the world's greatest leaders.",
+    "category": "HERITAGE",
+    "image": "https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=2070&auto=format&fit=crop",
+    "date": "May 2026"
+  },
+  {
+    "title": "Pedagogy of the Future",
+    "excerpt": "Exploring how AURA-ranked schools are integrating AI and emotional intelligence into their core curriculum.",
+    "category": "INNOVATION",
+    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+    "date": "April 2026"
+  },
+  {
+    "title": "Beyond the Classroom",
+    "excerpt": "A deep dive into the holistic growth models of Rajasthan's most prestigious residential institutions.",
+    "category": "HOLISTIC",
+    "image": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1986&auto=format&fit=crop",
+    "date": "March 2026"
+  }
+]

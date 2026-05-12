@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Future of Education</title>
+    <meta name="description"
+        content="Discover India's elite boarding schools through a modern, data-driven lens. Premium insights for the next generation of leaders. Powered by AURA.">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+
+<body>
+    <!-- Background Visuals -->
+    <div class="bg-glow">
+        <div class="glow-orb glow-1"></div>
+        <div class="glow-orb glow-2"></div>
+    </div>
+
+    <nav id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <div class="logo-dot"></div>
+                AURA
+            </a>
+            <ul class="nav-links">
+                <li><a href="#discover">Discover</a></li>
+                <li><a href="#rankings">Rankings</a></li>
+                <li><a href="#stories">Stories</a></li>
+                <li><a href="#newsletter" class="btn btn-outline"
+                        style="padding: 0.6rem 1.5rem; font-size: 0.8rem;">Subscribe</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="section-tag" data-reveal>AURA Signature Series</span>
+                <h1 data-reveal class="reveal-delay-1">Defining the <br><span class="text-gradient">Elite
+                        Standard</span></h1>
+                <div class="signature-header" style="margin: 1.5rem 0; opacity: 0.8;">by Saroj Pdhi</div>
+                <p class="hero-subtitle" data-reveal class="reveal-delay-2">A curated selection of India's most
+                    prestigious boarding schools, analyzed through performance, heritage, and holistic growth.
+                    Experience the AURA of excellence.</p>
+                <div class="cta-group" data-reveal class="reveal-delay-3">
+                    <a href="#rankings" class="btn btn-main">Explore Rankings</a>
+                    <a href="#discover" class="btn btn-outline">Watch Story</a>
+                </div>
+            </div>
+            <div class="hero-visual" data-reveal class="reveal-delay-3">
+                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2070&auto=format&fit=crop"
+                    alt="School Heritage"
+                    style="width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); transform: rotate(-2deg);">
+            </div>
+        </div>
+    </header>
+
+    <section id="discover" class="section container">
+        <div class="hero-grid">
+            <div class="hero-visual" data-reveal>
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
+                    alt="Discovery"
+                    style="width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); transform: rotate(2deg);">
+            </div>
+            <div class="hero-content">
+                <span class="section-tag" data-reveal>The AURA Process</span>
+                <h2 data-reveal>Discover Your <br><span class="text-gradient">True Potential</span></h2>
+                <p class="hero-subtitle" data-reveal>We don't just list schools; we discover environments where
+                    excellence thrives. Our discovery process analyzes over 50 parameters including pedagogical
+                    innovation, emotional intelligence, and global readiness.</p>
+                <ul style="list-style: none; margin-top: 2rem;" data-reveal>
+                    <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;">
+                        <div
+                            style="width: 30px; height: 30px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            ✓</div>
+                        <div>
+                            <strong style="display: block;">Curated Excellence</strong>
+                            <span style="color: var(--text-secondary);">Only the top 1% of schools make it to our final
+                                rankings.</span>
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;">
+                        <div
+                            style="width: 30px; height: 30px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            ✓</div>
+                        <div>
+                            <strong style="display: block;">Heritage Analysis</strong>
+                            <span style="color: var(--text-secondary);">We evaluate the legacy and track record of every
+                                institution.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="rankings" class="section container">
+            <div class="section-header">
+                <span class="section-tag" data-reveal>Curated Rankings</span>
+                <h2 data-reveal>India's Elite Institutions</h2>
+                <div class="filter-bar" data-reveal>
+                    <input type="text" id="school-search" placeholder="Search by name or location..."
+                        class="search-input">
+                    <select id="type-filter" class="filter-select">
+                        <option value="all">All Types</option>
+                        <option value="Co-Ed">Co-Ed</option>
+                        <option value="All-Boys">All-Boys</option>
+                        <option value="All-Girls">All-Girls</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="school-grid" class="grid">
+                <!-- Schools will be dynamically injected here -->
+            </div>
+        </section>
+
+        <section id="stories" class="section container">
+            <div class="section-header">
+                <span class="section-tag" data-reveal>Premium Insights</span>
+                <h2 data-reveal>AURA <span class="text-gradient">Originals</span></h2>
+            </div>
+
+            <div id="stories-grid" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                <!-- Stories will be dynamically injected here -->
+            </div>
+        </section>
+
+        <section id="newsletter" class="section container">
+            <div class="newsletter-box" data-reveal>
+                <span class="section-tag">Newsletter</span>
+                <h2>Join the <span class="text-gradient">Inner Circle</span></h2>
+                <p>Get AURA's exclusive stories and updates directly in your inbox.</p>
+
+                <form id="subscribe-form" class="sub-form">
+                    <input type="email" id="sub-email" name="email" placeholder="Your premium email" required autocomplete="email">
+                    <button type="submit">SUBSCRIBE</button>
+                </form>
+
+                <div id="sub-success" class="sub-success">
+                    <i data-lucide="check-circle"></i>
+                    <h3>Welcome to the Inner Circle</h3>
+                    <p id="success-msg">Your premium dossier is being prepared and will be dispatched to your inbox
+                        shortly.</p>
+                </div>
+
+                <div
+                    style="display: flex; gap: 1rem; justify-content: center; color: var(--text-secondary); font-size: 0.9rem;">
+                    <input type="checkbox" id="remember" checked>
+                    <label for="remember">Remember me for faster access</label>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="section container"
+        style="border-top: 1px solid rgba(255,255,255,0.05); text-align: center; padding: 4rem 0;">
+        <div class="logo" style="justify-content: center; margin-bottom: 0.5rem;">
+            <div class="logo-dot"></div>
+            AURA
+        </div>
+        <div class="signature">by Saroj Padhi</div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">&copy; 2026 AURA. All rights reserved.</p>
+    </footer>
+
+    <!-- School Details Modal -->
+    <div id="school-modal" class="modal">
+        <div class="modal-content">
+            <div id="school-details-content">
+                <!-- Data will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content" style="max-width: 1100px;">
+            <span class="close-modal">&times;</span>
+            <div class="video-container" id="aura-video-player">
+                <img src="assets/aura-video-frame.png" alt="AURA Campus" class="video-frame active"
+                    data-caption="Where Legacy Meets the Future">
+                <img src="assets/aura-classroom.png" alt="AURA Classroom" class="video-frame"
+                    data-caption="Pedagogical Innovation in Action">
+                <img src="assets/aura-library.png" alt="AURA Library" class="video-frame"
+                    data-caption="Curated Environments for Deep Learning">
+                <img src="assets/aura-sports.png" alt="AURA Sports" class="video-frame"
+                    data-caption="Holistic Growth through Global Readiness">
+
+                <div class="video-overlay-cinematic"></div>
+                <div class="film-grain"></div>
+                <div class="video-caption" id="video-caption-text">Where Legacy Meets the Future</div>
+
+                <div class="play-overlay" id="start-video-overlay">
+                    <div class="play-button" id="start-video-btn">▶</div>
+                    <p style="margin-top: 1.5rem; font-weight: 600; letter-spacing: 2px;">START AI JOURNEY</p>
+                </div>
+
+                <div class="video-controls-bottom">
+                    <div class="video-progress-bar" id="video-progress"></div>
+                </div>
+            </div>
+            <div style="padding: 3rem; text-align: center;">
+                <span class="section-tag">AURA ORIGINALS | AI CINEMATIC</span>
+                <h3>The AURA Heritage Story</h3>
+                <p
+                    style="color: var(--text-secondary); margin-top: 1rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8; font-size: 1.1rem;">
+                    Experience a fully AI-generated cinematic tour of India's most prestigious boarding school
+                    environment. AURA combines heritage with futuristic innovation.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>
