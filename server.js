@@ -68,14 +68,17 @@ const Subscription = mongoose.model('Subscription', subscriptionSchema);
 const ProspectusRequest = mongoose.model('ProspectusRequest', prospectusRequestSchema);
 
 // Nodemailer Transporter
-const emailConfigured = Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD);
+const emailConfigured = Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD && process.env.GMAIL_USER.includes('@'));
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // Use STARTTLS
+    service: 'gmail',
     auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD
+    },
+    secure: true,
+    requireTLS: true,
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
@@ -84,17 +87,17 @@ let transporterError = null;
 
 const formatEmailError = (error) => {
     if (!error) return 'Unknown email error.';
-    const message = error.response || error.message || '';
+    const message = String(error.response || error.message || error.toString() || '');
 
-    if (error.code === 'EAUTH' || error.responseCode === 535 || /BadCredentials/.test(message)) {
+    if (error.code === 'EAUTH' || error.responseCode === 535 || /BadCredentials|Authentication|Username and Password/.test(message)) {
         return 'Email authentication failed. Please verify GMAIL_USER and GMAIL_APP_PASSWORD in .env.';
     }
 
-    if (error.code === 'ECONNECTION' || error.code === 'ETIMEDOUT' || error.code === 'ENOTFOUND') {
+    if (error.code === 'ECONNECTION' || error.code === 'ETIMEDOUT' || error.code === 'ENOTFOUND' || /connect|getaddrinfo/.test(message)) {
         return 'Unable to connect to the email service. Please check your network and SMTP settings.';
     }
 
-    if (typeof message === 'string' && message.trim().length > 0) {
+    if (message.trim().length > 0) {
         return message.trim();
     }
 
@@ -151,20 +154,22 @@ app.post('/api/subscribe', async (req, res) => {
             text: `Welcome to the Inner Circle! Your premium dossier is being prepared and will be dispatched to your inbox shortly.\n\nBest regards,\nAURA Team`
         };
 
-        await sendEmail(mailOptions);
-        res.status(200).json({ message: 'Subscription successful' });
+        try {
+            await sendEmail(mailOptions);
+            return res.status(200).json({ message: 'Subscription successful' });
+        } catch (emailError) {
+            console.error('Subscription email failed:', emailError);
+            return res.status(200).json({
+                message: 'Subscription saved, but welcome email could not be sent.',
+                emailWarning: emailError.message
+            });
+        }
     } catch (error) {
         console.error('Subscription error:', error);
         if (error.code === 11000) {
             return res.status(400).json({ message: 'Email already subscribed' });
         }
-        if (error.code === 'EMAIL_NOT_CONFIGURED') {
-            return res.status(500).json({ message: 'Email configuration missing. Please set GMAIL_USER and GMAIL_APP_PASSWORD.' });
-        }
-        if (error.code === 'EMAIL_NOT_READY' || error.code === 'EMAIL_SEND_FAILED' || error.code === 'EAUTH') {
-            return res.status(500).json({ message: error.message });
-        }
-        res.status(500).json({ message: 'Internal Server Error' });
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
@@ -208,18 +213,20 @@ app.post('/api/prospectus', async (req, res) => {
             `
         };
 
-        await sendEmail(mailOptions);
-        res.status(200).json({ message: 'Prospectus sent' });
+        try {
+            await sendEmail(mailOptions);
+            return res.status(200).json({ message: 'Prospectus sent' });
+        } catch (emailError) {
+            console.error('Prospectus email failed:', emailError);
+            return res.status(200).json({
+                message: 'Prospectus request saved, but email could not be sent.',
+                emailWarning: emailError.message
+            });
+        }
     } catch (error) {
         console.error('--- FULL DISPATCH ERROR ---');
         console.error(error);
-        if (error.code === 'EMAIL_NOT_CONFIGURED') {
-            return res.status(500).json({ message: 'Email configuration missing. Please set GMAIL_USER and GMAIL_APP_PASSWORD.' });
-        }
-        if (error.code === 'EMAIL_NOT_READY' || error.code === 'EMAIL_SEND_FAILED' || error.code === 'EAUTH') {
-            return res.status(500).json({ message: error.message });
-        }
-        res.status(500).json({ message: `Dispatch Error: ${error.message || 'Internal Server Error'}` });
+        return res.status(500).json({ message: `Dispatch Error: ${error.message || 'Internal Server Error'}` });
     }
 });
 
