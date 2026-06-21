@@ -25,6 +25,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Fallback for missing static URLs
+app.use((req, res, next) => {
+    if (req.method === 'GET' && req.accepts('html')) {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    } else {
+        next();
+    }
+});
+
 console.log('--- AURA Server Startup ---');
 console.log('Target Email:', process.env.GMAIL_USER);
 console.log('App Password Set:', !!process.env.GMAIL_APP_PASSWORD);

@@ -131,6 +131,7 @@ function initModal() {
 
 // School Details Modal Logic
 let allSchools = [];
+let revealObserver;
 
 function initSchoolModal() {
     const modal = document.getElementById('school-modal');
@@ -332,7 +333,7 @@ window.handleProspectusRequest = async function(schoolName, button) {
     };
 
     try {
-        const response = await fetch('http://localhost:5000/api/prospectus', {
+        const response = await fetch('/api/prospectus', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -371,8 +372,12 @@ window.handleProspectusRequest = async function(schoolName, button) {
 // Background Parallax Logic
 function initParallax() {
     const orbs = document.querySelectorAll('.glow-orb');
-    window.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
+    let animationScheduled = false;
+    let clientX = 0;
+    let clientY = 0;
+
+    const updateOrbs = () => {
+        animationScheduled = false;
         const x = (clientX / window.innerWidth - 0.5) * 50;
         const y = (clientY / window.innerHeight - 0.5) * 50;
 
@@ -380,6 +385,15 @@ function initParallax() {
             const factor = (index + 1) * 0.5;
             orb.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
         });
+    };
+
+    window.addEventListener('mousemove', (e) => {
+        clientX = e.clientX;
+        clientY = e.clientY;
+        if (!animationScheduled) {
+            animationScheduled = true;
+            requestAnimationFrame(updateOrbs);
+        }
     });
 }
 
@@ -401,7 +415,7 @@ function initNewsletter() {
         input.style.opacity = '0.5';
 
         try {
-            const response = await fetch('http://localhost:5000/api/subscribe', {
+const response = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -528,15 +542,17 @@ async function loadStories() {
 }
 
 function initScrollReveal() {
-    const revealElements = document.querySelectorAll('[data-reveal]');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, { threshold: 0.1 });
-    revealElements.forEach(el => observer.observe(el));
+    const revealElements = document.querySelectorAll('[data-reveal]:not(.active)');
+    if (!revealObserver) {
+        revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+    }
+    revealElements.forEach(el => revealObserver.observe(el));
 }
 
 window.addEventListener('load', () => {
